@@ -1,6 +1,4 @@
 #!/bin/python3
-
-# This is an attendance system for a class
 import mariadb as connector
 import time
 import sys
@@ -8,7 +6,6 @@ import os
 
 host = "localhost"
 user = "attendance"
-# Check if the os is windows
 if os.name == "nt":
     try:
         with open(r"C:\ams\mysqlpasswd.txt", "r") as f:
@@ -25,7 +22,6 @@ elif os.name == "posix":
         exit(1)
 database = "attendance"
 
-# Connect to MariaDB Platform
 if "-h" not in sys.argv and "--help" not in sys.argv:
     try:
         cnx = connector.connect(
@@ -35,7 +31,6 @@ if "-h" not in sys.argv and "--help" not in sys.argv:
         print("Error connecting to Database")
         exit(1)
 
-# Get a cursor
 try:
     cur = cnx.cursor()
 except NameError:
@@ -55,14 +50,7 @@ def get_date():
 
 
 def main():
-    # Options to include in sys.argv:
-    # --date, -d
-    # --student-name, -n
-    # --roll, -r
-    # --class, -c
-    # --period, -p
     args = sys.argv
-    # If -d is not specified, use today's date
     if "-h" in args or "--help" in args:
         print(
             f"""Usage: {args[0]} [OPTIONS] [ARGS]
@@ -115,19 +103,11 @@ Options:
     else:
         print("Error: Period not specified")
         exit(1)
-    # Check if table exists for the date
+
     query = f"SELECT * FROM information_schema.tables WHERE table_name = '{date}'"
     if execute(query) == []:
-        # Put roll and class as primary key, and fill all fields
-        query = f"""CREATE TABLE {date} (
-            class VARCHAR(10) NOT NULL,
-            roll INT NOT NULL,
-            period INT NOT NULL,
-            name VARCHAR(50) NOT NULL,
-            PRIMARY KEY (class, roll)
-        )"""
+        query = f"CREATE TABLE {date} (class VARCHAR(10) NOT NULL, roll INT NOT NULL, period INT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY (class, roll))"
         execute(query)
-    # Check if student is already present in the period with name
     query = f"SELECT * FROM {date} WHERE class = '{class_}' AND roll = {roll} AND period = {period} AND name = '{name}'"
     exc = execute(query)
     if exc != []:
