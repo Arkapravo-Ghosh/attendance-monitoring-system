@@ -7,3 +7,9 @@
 <div align=center>
 <img height=350 src="docs/images/help.png">
 </div>
+
+### Example:
+<div align=center>
+<img height=350
+ src="docs/images/example.png">
+</div>
