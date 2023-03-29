@@ -10,6 +10,6 @@
 
 ### Example:
 <div align=center>
-<img height=350
+<img width=800
  src="docs/images/example.png">
 </div>
