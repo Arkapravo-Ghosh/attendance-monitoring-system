@@ -4,15 +4,25 @@
 import mariadb as connector
 import time
 import sys
+import os
 
 host = "localhost"
 user = "attendance"
-try:
-    with open(".creds/mysqlpasswd.txt", "r") as f:
-        passwd = f.read()
-except FileNotFoundError:
-    print("Error: .creds/mysqlpasswd.txt not found")
-    exit(1)
+# Check if the os is windows
+if os.name == "nt":
+    try:
+        with open(r"C:\ams\mysqlpasswd.txt", "r") as f:
+            passwd = f.read()
+    except FileNotFoundError:
+        print(r"Error: C:\ams\mysqlpasswd.txt not found")
+        exit(1)
+elif os.name == "posix":
+    try:
+        with open("/etc/ams/mysqlpasswd.txt", "r") as f:
+            passwd = f.read()
+    except FileNotFoundError:
+        print("Error: /etc/ams/mysqlpasswd.txt not found")
+        exit(1)
 database = "attendance"
 
 # Connect to MariaDB Platform
