@@ -5,7 +5,7 @@
 
 ## Backend Usage
 <div align=center>
-<img height=350 src="docs/images/help.png">
+<img height=350 src="docs/images/help1.png">
 </div>
 
 ### Example:
