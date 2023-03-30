@@ -106,7 +106,7 @@ Options:
 
     query = f"SELECT * FROM information_schema.tables WHERE table_name = '{date}'"
     if execute(query) == []:
-        query = f"CREATE TABLE {date} (class VARCHAR(10) NOT NULL, roll INT NOT NULL, period INT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY (class, roll))"
+        query = f"CREATE TABLE {date} (class VARCHAR(10) NOT NULL, roll INT NOT NULL, period INT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY (class, roll, period))"
         execute(query)
     query = f"SELECT * FROM {date} WHERE class = '{class_}' AND roll = {roll} AND period = {period} AND name = '{name}'"
     exc = execute(query)
