@@ -1,6 +1,7 @@
+![](https://img.shields.io/badge/Work%20In%20Progress-informational)
 # Attendance Monitoring System using Biometrics (Fingerprint)
-
 ## Installation
+
 *Installation guide is written at [INSTALLATION.md](docs/INSTALLATION.md).*
 
 ## Backend Usage
