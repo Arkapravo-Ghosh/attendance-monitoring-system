@@ -20,6 +20,7 @@ elif os.name == "posix":
     except FileNotFoundError:
         print("Error: /etc/ams/mysqlpasswd.txt not found")
         exit(1)
+passwd = passwd.strip()
 database = "attendance"
 
 if "-h" not in sys.argv and "--help" not in sys.argv:
