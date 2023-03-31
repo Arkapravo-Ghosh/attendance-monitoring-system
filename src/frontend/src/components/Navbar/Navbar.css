@@ -1,0 +1,102 @@
+.navbar_main_parent {
+    font-family: "Poppins", sans-serif;
+    /* background: #a87ff3; */
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    padding-top: 10px;
+    z-index: 2;
+}
+
+.navbar_subparent {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.navbar_brand {
+    margin: 0px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar_brand img {
+    width: auto;
+    height: 60px;
+}
+
+.navbar_linksdiv {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 45%;
+    padding-top: 20px;
+}
+
+.navbar_links {
+    color: #474c52;
+    margin: 0px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 19px;
+}
+
+.navbar_btndiv {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 15%;
+    font-family: "Poppins";
+    font-style: normal;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.navbar_login_button {
+    border: 1px solid #d0d3d6;
+    border-radius: 6px;
+    box-shadow: 0px 0px 50px -10px rgba(0, 0, 0, 0.288);
+    color: black;
+    cursor: pointer;
+    width: 108px;
+    height: 48px;
+    background: #f0eff5;
+}
+
+.navbar_login_button:hover {
+    background: #5e2b70;
+    box-shadow: 0px 0px 50px -10px rgba(0, 0, 0, 0.288);
+    border-radius: 6px;
+    border: 1px solid #d0d3d6;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.navbar_joinus_button {
+    background: #5e2b70;
+    box-shadow: 0px 0px 50px -10px rgba(0, 0, 0, 0.288);
+    border: none;
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    width: 108px;
+    height: 48px;
+}
+
+.navbar_joinus_button:hover {
+    background: #ffffff;
+    box-shadow: 0px 0px 50px -10px rgba(0, 0, 0, 0.288);
+    border: 1px solid #d0d3d6;
+    border-radius: 6px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    background: #f0eff5;
+}
