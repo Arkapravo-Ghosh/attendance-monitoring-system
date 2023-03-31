@@ -58,13 +58,13 @@ newgrp ams
 <summary>Linux/macOS</summary>
 
 ```bash
-python3 ./src/backend.py -h
+python3 ./src/server/backend.py -h
 ```
 </details>
 <details>
 <summary>Windows</summary>
 
 ```powershell
-py .\src\backend.py -h
+py .\src\server\backend.py -h
 ```
 </details>
