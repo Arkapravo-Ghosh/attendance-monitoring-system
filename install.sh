@@ -56,6 +56,7 @@ if [ "$generate" == "Y" ] || [ "$generate" == "y" ] || [ "$generate" == "" ]; th
     echo "Creating the config file..."
     mkdir /etc/ams
     echo "$password" > /etc/ams/mysqlpasswd.txt
+fi
 
 echo -n "Do you want to secure the config file? (Y/n): "
 read secure
