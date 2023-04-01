@@ -52,9 +52,13 @@ FLUSH PRIVILEGES;
 backend.py -h
 ```
 
-### Connect R307 Fingerprint Scanner to Raspberry Pi using UART to USB Converter
+### Connect R307 Fingerprint Scanner to Raspberry Pi using UART to USB Converter:
 
 <div align=center>
 <img align=top height="300" src="images/R307-Fingerprint-Scanner-Pinout.png" />&nbsp;
 <img align=top height="300" src="images/usb-to-uart-img.jpg" />
 </div>
+<br>
+
+- Connect the 5V pin of the Fingerprint Scanner to 5V pin of the UART to USB Converter and the GND pin of the Fingerprint Scanner to GND pin of the UART to USB Converter.
+- Connect the TX pin of the Fingerprint Scanner to RX pin of the UART to USB Converter and the RX pin of the Fingerprint Scanner to TX pin of the UART to USB Converter.
