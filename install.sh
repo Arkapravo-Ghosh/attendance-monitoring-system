@@ -84,3 +84,4 @@ if [ "$reboot" == "Y" ] || [ "$reboot" == "y" ] || [ "$reboot" == "" ]; then
     echo "Rebooting..."
     reboot
 fi
+echo "Installed."
