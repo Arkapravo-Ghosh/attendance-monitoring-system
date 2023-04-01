@@ -16,10 +16,16 @@ else
 fi
 
 if [ -x "$(command -v apt)" ]; then
-    echo "Installing MariaDB..."
-    curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
-    apt update
-    apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
+    if [ ! -x "$(command -v curl)" ]; then
+        echo "Installing curl..."
+        apt install -y curl
+    fi
+    if [ ! -x "$(command -v mysql)" ]; then
+        echo "Installing MariaDB..."
+        curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
+        apt update
+        apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
+    fi
 fi
 
 echo "Installing the required pip packages..."
