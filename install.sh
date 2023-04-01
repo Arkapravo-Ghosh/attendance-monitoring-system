@@ -12,6 +12,7 @@ else
     echo "Cloning the repo to /opt..."
     cd /opt
     git clone https://github.com/Arkapravo-Ghosh/attendance-monitoring-system.git
+    git config pull.rebase false
 fi
 
 if [ -x "$(command -v apt)" ]; then
