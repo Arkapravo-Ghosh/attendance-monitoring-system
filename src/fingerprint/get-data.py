@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/bin/python3
 from pyfingerprint.pyfingerprint import PyFingerprint
 import mariadb as connector
 import os

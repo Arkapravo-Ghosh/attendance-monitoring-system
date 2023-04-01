@@ -1,6 +1,5 @@
-#!/usr/bin/env python
+#!/bin/python3
 import os
-import hashlib
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
 import mariadb as connector
