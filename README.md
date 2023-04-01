@@ -14,3 +14,9 @@
 <img width=800
  src="docs/images/example.png">
 </div>
+
+### Model Image:
+<div align=center>
+<img height=400
+ src="docs/images/model.jpg">
+</div>
