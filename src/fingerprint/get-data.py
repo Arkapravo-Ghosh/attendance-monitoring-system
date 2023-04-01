@@ -42,11 +42,6 @@ def execute(query):
     except connector.ProgrammingError:
         return []
 
-
-## Shows the template index table
-
-
-## Tries to initialize the sensor
 try:
     f = PyFingerprint("/dev/ttyUSB0", 57600, 0xFFFFFFFF, 0x00000000)
 
@@ -58,7 +53,6 @@ except Exception as e:
     print("Exception message: " + str(e))
     exit(1)
 
-## Gets some sensor information
 print(
     "Currently used templates: "
     + str(f.getTemplateCount())
@@ -66,9 +60,7 @@ print(
     + str(f.getStorageCapacity())
 )
 
-## Tries to show a template index table page
 try:
-    # Get all templates from sensor
     tableIndex = f.getTemplateIndex(0)
     tableIndex = tableIndex + f.getTemplateIndex(1)
     tableIndex = tableIndex + f.getTemplateIndex(2)
@@ -77,7 +69,6 @@ try:
         data = f"#{str(i)} {str(tableIndex[i])}"
         if "True" in data:
             try:
-                # Search for class name and roll number in database
                 query = f'SELECT class, roll, name FROM student_data WHERE position = "{str(i)}"'
                 result = execute(query)
                 if result:
