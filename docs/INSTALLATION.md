@@ -51,3 +51,9 @@ FLUSH PRIVILEGES;
 ```bash
 backend.py -h
 ```
+
+### Connect R307 Fingerprint Scanner to Raspberry Pi using UART to USB Converter
+
+<div align=center>
+<img height="400" src="images/R307-Fingerprint-Scanner-Pinout.png">
+</div>
