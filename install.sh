@@ -40,15 +40,22 @@ if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
     mysql -u root -e "FLUSH PRIVILEGES;"
 fi
 
-if [ "$passord" == "" ]; then
-    echo -n "Enter the password for the user: "
-    read -s password
-    echo
+echo -n "Has the password for the SQL user been changed? (Y/n): "
+read changed
+if [ "$changed" == "Y" ] || [ "$changed" == "y" ] || [ "$changed" == "" ]; then
+    if [ "$password" == "" ]; then
+        echo -n "Enter the password for the SQL user: "
+        read -s password
+        echo
+    fi
 fi
 
-echo "Creating the config file..."
-mkdir /etc/ams
-echo "$password" > /etc/ams/mysqlpasswd.txt
+echo -n "Do you want to generate the config file? (Y/n): "
+read generate
+if [ "$generate" == "Y" ] || [ "$generate" == "y" ] || [ "$generate" == "" ]; then
+    echo "Creating the config file..."
+    mkdir /etc/ams
+    echo "$password" > /etc/ams/mysqlpasswd.txt
 
 echo -n "Do you want to secure the config file? (Y/n): "
 read secure
