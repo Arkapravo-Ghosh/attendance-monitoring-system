@@ -102,7 +102,7 @@ while True:
         break
     except ValueError:
         print("Invalid period")
-backend = "../server/backend.py"
+backend = "backend.py"
 try:
     os.system(f"{backend} -n \"{name}\" -c {class_} -r {roll} -p {period}")
 except FileNotFoundError:
