@@ -1,5 +1,8 @@
 #!/bin/python3
-import mariadb as connector
+try:
+    import mariadb as connector
+except ImportError:
+    import mysql.connector as connector
 import time
 import sys
 import os

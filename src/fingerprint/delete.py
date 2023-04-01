@@ -2,7 +2,10 @@
 import os
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
-import mariadb as connector
+try:
+    import mariadb as connector
+except ImportError:
+    import mysql.connector as connector
 
 host = "localhost"
 user = "attendance"

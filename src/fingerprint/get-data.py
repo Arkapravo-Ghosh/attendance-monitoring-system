@@ -1,6 +1,9 @@
 #!/bin/python3
 from pyfingerprint.pyfingerprint import PyFingerprint
-import mariadb as connector
+try:
+    import mariadb as connector
+except ImportError:
+    import mysql.connector as connector
 import os
 
 host = "localhost"
