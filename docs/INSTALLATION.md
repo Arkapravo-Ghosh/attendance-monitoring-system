@@ -1,4 +1,4 @@
-# Install guide
+# Installation guide
 ## Backend
 ### Prerequisites:
 - Python 3.6+
@@ -10,20 +10,22 @@ git clone https://github.com/Arkapravo-Ghosh/attendance-monitoring-system.git
 ```
 ### Install dependencies:
 <details>
-<summary>Linux/macOS</summary>
+<summary>Linux</summary>
 
 ```bash
-pip3 install -r requirements.txt
+git clone https://github.com/Arkapravo-Ghosh/attendance-monitoring-system.git
+cd attendance-monitoring-system
+sudo ./install.sh
 ```
 </details>
 <details>
 <summary>Windows</summary>
 
 ```powershell
+git clone https://github.com/Arkapravo-Ghosh/attendance-monitoring-system.git
+cd attendance-monitoring-system
 py -m pip install -r requirements.txt
 ```
-</details>
-
 ### Create a database:
 ```sql
 CREATE DATABASE attendance;
@@ -38,33 +40,14 @@ CREATE USER 'attendance'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON attendance.* TO 'attendance'@'localhost';
 FLUSH PRIVILEGES;
 ```
+</details>
+
+
 #### Put the Newly Created SQL User's password in the text file at `/etc/ams/mysqlpasswd.txt`
 > **NOTE:** If you are using Windows, you can put the password in the file at `C:\ams\mysqlpasswd.txt` instead.
-<details>
-<summary>Optional: Secure the password file in Linux</summary>
+
+### Run the backend (Linux):
 
 ```bash
-sudo groupadd ams
-sudo usermod -aG ams $USER
-sudo chown root:ams /etc/ams/mysqlpasswd.txt
-sudo chmod 640 /etc/ams/mysqlpasswd.txt
-newgrp ams
+backend.py -h
 ```
-> **NOTE:** Re-login to apply the changes user-wide.
-</details>
-
-### Run the backend:
-<details>
-<summary>Linux/macOS</summary>
-
-```bash
-python3 ./src/server/backend.py -h
-```
-</details>
-<details>
-<summary>Windows</summary>
-
-```powershell
-py .\src\server\backend.py -h
-```
-</details>
