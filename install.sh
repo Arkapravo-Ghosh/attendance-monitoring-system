@@ -61,10 +61,8 @@ fi
 
 echo "Adding the scripts to the PATH variable..."
 echo "export PATH=\$PATH:/opt/attendance-monitoring-system/src/server:/opt/attendance-monitoring-system/src/fingerprint" >> /etc/profile
-source /etc/profile
 if [ -x "$(command -v zsh)" ]; then
     echo "export PATH=\$PATH:/opt/attendance-monitoring-system/server:/opt/attendance-monitoring-system/fingerprint" >> /etc/zsh/zprofile
-    source /etc/zsh/zprofile
 fi
 
 echo -n "Do you want to reboot now? (Y/n): "
