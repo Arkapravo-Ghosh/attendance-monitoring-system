@@ -4,9 +4,15 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-echo "Cloning the repo to /opt..."
-cd /opt
-git clone https://github.com/Arkapravo-Ghosh/attendance-monitoring-system.git
+if [ -d "/opt/attendance-monitoring-system" ]; then
+    echo "Updating the repo..."
+    cd /opt/attendance-monitoring-system
+    git pull
+else
+    echo "Cloning the repo to /opt..."
+    cd /opt
+    git clone https://github.com/Arkapravo-Ghosh/attendance-monitoring-system.git
+fi
 
 if [ -x "$(command -v apt)" ]; then
     echo "Installing MariaDB..."
@@ -29,8 +35,8 @@ if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
     echo -n "Enter the password for the user: "
     read -s password
     echo
-    mysql -u root -e "CREATE USER 'attendance'@'localhost' IDENTIFIED BY '$password';"
-    mysql -u root -e "GRANT ALL PRIVILEGES ON attendance.* TO 'attendance'@'localhost';"
+    mysql -u root -e "CREATE USER 'attendance'@'%' IDENTIFIED BY '$password';"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON attendance.* TO 'attendance'@'%';"
     mysql -u root -e "FLUSH PRIVILEGES;"
 fi
 
