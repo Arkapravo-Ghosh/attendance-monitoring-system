@@ -70,6 +70,7 @@ if [ "$secure" == "Y" ] || [ "$secure" == "y" ] || [ "$secure" == "" ]; then
     usermod -aG ams $username
     echo "Changes will take effect after a relogin."
     echo "Setting the permissions..."
+    chown root:ams /etc/ams/mysqlpasswd.txt
     chmod 640 /etc/ams/mysqlpasswd.txt
 fi
 
