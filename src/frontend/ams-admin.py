@@ -52,6 +52,30 @@ def get_date():
     return time.strftime("%d_%m_%Y")
 
 
+def get_attendance_data(date):
+    try:
+        data = execute(f"SELECT * FROM {date}")
+    except connector.ProgrammingError:
+        print("Error: Table does not exist")
+        exit(1)
+    return data
+
+
+def get_student_data():
+    data = execute("SELECT * FROM student_data")
+    return data
+
+
+def get_absent_students(date):
+    data = execute(f"SELECT * FROM {date}")
+    absent = []
+    student_data = get_student_data()
+    for student in student_data:
+        if student[0] not in [x[0] for x in data]:
+            absent.append(student)
+    return absent
+
+
 def main():
     print(
         """
@@ -211,39 +235,18 @@ Press Enter to go back
             choice_d = input("Enter your choice: ")
             if choice_d == "":
                 pass
-            elif choice_d == "0":
-                print("Exiting...")
-                exit(0)
-            elif choice_d == "1":
-                date = get_date()
-                student_data = execute("SELECT * FROM student_data")
-                attendance_data = execute(f"SELECT * FROM {date}")
-                absents = []
-                for student in student_data:
-                    if student not in attendance_data:
-                        absents.append(student)
-                with open(f"absents_{date}.csv", "w") as f:
-                    f.write("Class, Roll, Name\n")
-                    for absent in absents:
-                        f.write(f"{absent[2]}, {absent[3]}, {absent[1]}\n")
-                print(f"Absent students saved to absents_{date}.csv")
-            elif choice_d == "2":
-                date = input("Enter date in dd_mm_yyyy format: ")
-                student_data = execute("SELECT * FROM student_data")
-                attendance_data = execute(f"SELECT * FROM {date}")
-                absents = []
-                for student in student_data:
-                    if student not in attendance_data:
-                        absents.append(student)
-                with open(f"absents_{date}.csv", "w") as f:
-                    f.write("Class, Roll, Name\n")
-                    for absent in absents:
-                        f.write(f"{absent[2]}, {absent[3]}, {absent[1]}\n")
-                print(f"Absent students saved to absents_{date}.csv")
             else:
                 print("Invalid Choice")
         elif choice_a == "6":
             pass
+        elif choice_a == "7":
+            pass
+        elif choice_a == "8":
+            pass
+        elif choice_a == "9":
+            pass
+        else:
+            print("Invalid Choice")
 
 
 if __name__ == "__main__":
