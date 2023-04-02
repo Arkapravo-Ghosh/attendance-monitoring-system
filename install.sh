@@ -107,12 +107,14 @@ usermod -aG dialout $SUDO_USER
 usermod -aG gpio $SUDO_USER
 echo "Adding service files..."
 cp /opt/attendance-monitoring-system/src/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
+cp /opt/attendance-monitoring-system/src/server/ams-recovery.service /etc/systemd/system/ams-recovery.service
 systemctl daemon-reload
 echo -n "Do you want to enable the ams service? (Y/n): "
 read enableams
 if [ "$enableams" == "Y" ] || [ "$enableams" == "y" ] || [ "$enableams" == "" ]; then
     echo "Enabling the service..."
     systemctl enable ams-attendance.service
+    systemctl enable ams-recovery.service
 fi
 echo -n "Do you want to secure the config file? (Y/n): "
 read secure

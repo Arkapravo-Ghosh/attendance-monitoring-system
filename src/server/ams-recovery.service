@@ -1,0 +1,14 @@
+[Unit]
+Description=Automated Healing Service for AMS Backend
+After=network.target mysql.service ams-attendance.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/opt/attendance-monitoring-system/src/server/ams-backend-recovery.py
+Restart=always
+RestartSec=0.3
+
+[Install]
+WantedBy=multi-user.target
