@@ -1,6 +1,6 @@
 [Unit]
 Description=Automated Healing Service for AMS Backend
-After=network.target mysql.service ams-attendance.service
+After=network.target mysql.service
 
 [Service]
 Type=simple
