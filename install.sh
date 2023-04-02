@@ -89,9 +89,7 @@ if [ "$secure" == "Y" ] || [ "$secure" == "y" ] || [ "$secure" == "" ]; then
     echo "Creating the ams group..."
     groupadd ams
     echo "Adding the user to the ams group..."
-    echo -n "Enter your username: "
-    read username
-    usermod -aG ams $username
+    usermod -aG ams $SUDO_USER
     echo "Changes will take effect after a relogin."
     echo "Setting the permissions..."
     chown root:ams /etc/ams/mysqlpasswd.txt
