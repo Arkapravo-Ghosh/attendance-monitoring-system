@@ -79,8 +79,9 @@ Please select an option:
         choice_s = input("Enter your choice: ")
         if choice_s == "1":
             os.system("sudo systemctl stop ams-attendance")
+            time.sleep(1)
             os.system("ams-enroll.py")
-            os.system("sudo systemctl start ams-attendance")
+            time.sleep(1)
 
 
 if __name__ == "__main__":
