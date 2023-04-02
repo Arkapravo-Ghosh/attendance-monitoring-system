@@ -61,4 +61,4 @@ backend.py -h
 <br>
 
 - Connect the 5V pin of the Fingerprint Scanner to 5V pin of the UART to USB Converter and the GND pin of the Fingerprint Scanner to GND pin of the UART to USB Converter.
-- Connect the TX pin of the Fingerprint Scanner to RX pin of the UART to USB Converter and the RX pin of the Fingerprint Scanner to TX pin of the UART to USB Converter.
+- Connect the TXD pin of the Fingerprint Scanner to RXD pin of the UART to USB Converter and the RXD pin of the Fingerprint Scanner to TXD pin of the UART to USB Converter.
