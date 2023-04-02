@@ -45,7 +45,7 @@ if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
     echo "Creating the database..."
     mysql -u root < /opt/attendance-monitoring-system/server/database.sql
     echo "Creating the user..."
-    pass_var="Enter Password: "
+    pass_var="Enter Password for SQL User: "
     while IFS= read -p "$pass_var" -r -s -n 1 letter
     do
         if [[ $letter == $'\0' ]]
@@ -61,11 +61,13 @@ if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
     mysql -u root -e "FLUSH PRIVILEGES;"
 fi
 
-echo -n "Has the password for the SQL user been changed? (Y/n): "
-read changed
-if [ "$changed" == "Y" ] || [ "$changed" == "y" ] || [ "$changed" == "" ]; then
+echo -n "Do you want to generate the config file? (Y/n): "
+read generate
+if [ "$generate" == "Y" ] || [ "$generate" == "y" ] || [ "$generate" == "" ]; then
+    echo "Creating the config file..."
+    mkdir /etc/ams
     if [ "$password" == "" ]; then
-        pass_var="Enter Password: "
+        pass_var="Enter Password for SQL User: "
         while IFS= read -p "$pass_var" -r -s -n 1 letter
         do
             if [[ $letter == $'\0' ]]
@@ -77,14 +79,7 @@ if [ "$changed" == "Y" ] || [ "$changed" == "y" ] || [ "$changed" == "" ]; then
         done
         echo
     fi
-fi
-
-echo -n "Do you want to generate the config file? (Y/n): "
-read generate
-if [ "$generate" == "Y" ] || [ "$generate" == "y" ] || [ "$generate" == "" ]; then
-    echo "Creating the config file..."
-    mkdir /etc/ams
-    echo "$password" > /etc/ams/mysqlpasswd.txt
+    echo -n "$password" > /etc/ams/mysqlpasswd.txt
 fi
 
 echo -n "Do you want to secure the config file? (Y/n): "
