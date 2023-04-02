@@ -1,6 +1,5 @@
 #!/bin/python3
 import os
-import time
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
 try:
@@ -100,45 +99,12 @@ except connector.ProgrammingError:
 name = result[0][0]
 class_ = result[0][1]
 roll = result[0][2]
-
-now = time.localtime()
-hour = now.tm_hour
-minute = now.tm_min
-
-period = 0
-if hour == 9:
-    if minute >= 30:
-        period = 1
-elif hour == 10:
-    if minute <= 25:
-        period = 1
-    elif minute >= 30:
-        period = 2
-elif hour == 11:
-    if minute <= 25:
-        period = 2
-    elif minute >= 30:
-        period = 3
-elif hour == 12:
-    if minute <= 25:
-        period = 3
-elif hour == 13:
-    if minute >= 20:
-        period = 4
-elif hour == 14:
-    if minute <= 15:
-        period = 4
-    elif minute >= 20:
-        period = 5
-elif hour == 15:
-    if minute <= 15:
-        period = 5
-    elif minute >= 20:
-        period = 6
-elif hour == 16:
-    if minute <= 15:
-        period = 6
-
+while True:
+    try:
+        period = int(input("Enter period: "))
+        break
+    except ValueError:
+        print("Invalid period")
 backend = "ams-backend.py"
 try:
     os.system(f"{backend} -n \"{name}\" -c {class_} -r {roll} -p {period}")

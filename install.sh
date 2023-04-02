@@ -54,6 +54,8 @@ echo -n "Do you want to auto setup MariaDB? (Y/n): "
 read auto
 
 if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
+    echo "Enabling and Starting MariaDB..."
+    systemctl enable --now mysql
     echo "Changing the root password of MariaDB..."
     mysql_secure_installation
     echo "Creating the database..."
@@ -95,14 +97,23 @@ if [ "$generate" == "Y" ] || [ "$generate" == "y" ] || [ "$generate" == "" ]; th
     fi
     echo -n "$password" > /etc/ams/mysqlpasswd.txt
 fi
-
+echo "Creating ams user..."
+useradd -m ams
+echo "Adding the user to the dialout group..."
+usermod -aG dialout ams
+echo "Adding service files..."
+cp /opt/attendance-monitoring-system/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
+echo "Enabling the service..."
+systemctl enable ams-attendance.service
 echo -n "Do you want to secure the config file? (Y/n): "
 read secure
 if [ "$secure" == "Y" ] || [ "$secure" == "y" ] || [ "$secure" == "" ]; then
     echo "Securing the config file..."
     echo "Creating the ams group..."
     groupadd ams
-    echo "Adding the user to the ams group..."
+    echo "Adding ams user to the ams group..."
+    usermod -aG ams ams
+    echo "Adding current user to the ams group..."
     usermod -aG ams $SUDO_USER
     echo "Changes will take effect after a relogin."
     echo "Setting the permissions..."
