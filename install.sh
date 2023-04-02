@@ -102,7 +102,7 @@ useradd -m ams
 echo "Adding the user to the dialout group..."
 usermod -aG dialout ams
 echo "Adding service files..."
-cp /opt/attendance-monitoring-system/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
+cp /opt/attendance-monitoring-system/src/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
 echo -n "Do you want to enable the ams service? (Y/n): "
 read enableams
 if [ "$enableams" == "Y" ] || [ "$enableams" == "y" ] || [ "$enableams" == "" ]; then
