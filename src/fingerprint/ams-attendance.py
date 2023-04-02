@@ -139,7 +139,7 @@ elif hour == 16:
     if minute <= 15:
         period = 6
 
-backend = "ams-backend.py"
+backend = "/opt/attendance-monitoring-system/src/server/ams-backend.py"
 try:
     os.system(f"{backend} -n \"{name}\" -c {class_} -r {roll} -p {period}")
 except FileNotFoundError:
