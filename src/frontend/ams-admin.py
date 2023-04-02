@@ -59,6 +59,7 @@ Please select an option:
 1. Manage Student Data
 2. Manage Attendance Data
 0. Exit
+
 """
     )
     choice_ams = input("Enter your choice: ")
@@ -74,6 +75,7 @@ Please select an option:
 3. Verify Student
 4. List Students
 0. Exit
+
 Press Enter to go back
 """
         )
