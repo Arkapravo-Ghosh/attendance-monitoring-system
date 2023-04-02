@@ -132,7 +132,7 @@ if [ -f "/etc/profile" ]; then
         echo "export PATH=\$PATH:/opt/attendance-monitoring-system/src/server:/opt/attendance-monitoring-system/src/fingerprint:/opt/attendance-monitoring-system/src/frontend" >> /etc/profile
         if [ -x "$(command -v zsh)" ]; then
             if [ -z "$(grep "/opt/attendance-monitoring-system/src/server" /etc/zsh/zprofile)" ]; then
-                echo "export PATH=\$PATH:/opt/attendance-monitoring-system/src/server:/opt/attendance-monitoring-system/src/fingerprint" >> /etc/zsh/zprofile
+                echo "export PATH=\$PATH:/opt/attendance-monitoring-system/src/server:/opt/attendance-monitoring-system/src/fingerprint:/opt/attendance-monitoring-system/src/frontend" >> /etc/zsh/zprofile
             fi
         fi
     fi
