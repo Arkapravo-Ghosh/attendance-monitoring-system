@@ -21,15 +21,21 @@ if [ -x "$(command -v apt)" ]; then
         apt install -y curl
     fi
     if [ ! -x "$(command -v mysql)" ]; then
-        echo "Installing MariaDB..."
-        curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
-        apt update
-        apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
+        echo -n "Do you want to install MariaDB? (Y/n): "
+        read install
+        if [ "$install" == "Y" ] || [ "$install" == "y" ] || [ "$install" == "" ]; then
+            curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
+            apt update
+            apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
+        fi
     fi
 fi
-
-echo "Installing the required pip packages..."
-pip3 install -r /opt/attendance-monitoring-system/requirements.txt
+echo -n "Do you want to install the required pip packages? (Y/n): "
+read pipinstall
+if [ "$pipinstall" == "Y" ] || [ "$pipinstall" == "y" ] || [ "$pipinstall" == "" ]; then
+    echo "Installing the required pip packages..."
+    pip3 install -r /opt/attendance-monitoring-system/requirements.txt
+fi
 echo -n "Do you want to auto setup MariaDB? (Y/n): "
 read auto
 
@@ -39,8 +45,16 @@ if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
     echo "Creating the database..."
     mysql -u root < /opt/attendance-monitoring-system/server/database.sql
     echo "Creating the user..."
-    echo -n "Enter the password for the user: "
-    read -s password
+    pass_var="Enter Password: "
+    while IFS= read -p "$pass_var" -r -s -n 1 letter
+    do
+        if [[ $letter == $'\0' ]]
+        then
+            break
+        fi
+        password="$password$letter"
+        pass_var="*"
+    done
     echo
     mysql -u root -e "CREATE USER 'attendance'@'%' IDENTIFIED BY '$password';"
     mysql -u root -e "GRANT ALL PRIVILEGES ON attendance.* TO 'attendance'@'%';"
@@ -51,8 +65,16 @@ echo -n "Has the password for the SQL user been changed? (Y/n): "
 read changed
 if [ "$changed" == "Y" ] || [ "$changed" == "y" ] || [ "$changed" == "" ]; then
     if [ "$password" == "" ]; then
-        echo -n "Enter the password for the SQL user: "
-        read -s password
+        pass_var="Enter Password: "
+        while IFS= read -p "$pass_var" -r -s -n 1 letter
+        do
+            if [[ $letter == $'\0' ]]
+            then
+                break
+            fi
+            password="$password$letter"
+            pass_var="*"
+        done
         echo
     fi
 fi
