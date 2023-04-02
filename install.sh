@@ -29,7 +29,7 @@ if [ -x "$(command -v apt)" ]; then
             apt update
             apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
         fi
-    fi # Add support for pacman
+    fi
 elif [ -x "$(command -v pacman)" ]; then
     echo "Detected Arch Linux"
     if [ ! -x "$(command -v curl)" ]; then
