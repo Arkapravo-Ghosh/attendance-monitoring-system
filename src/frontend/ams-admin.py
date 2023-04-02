@@ -59,7 +59,6 @@ Please select an option:
 1. Manage Student Data
 2. Manage Attendance Data
 0. Exit
-
 """
     )
     choice_ams = input("Enter your choice: ")
