@@ -74,10 +74,16 @@ Please select an option:
 3. Verify Student
 4. List Students
 0. Exit
+Press Enter to go back
 """
         )
         choice_s = input("Enter your choice: ")
-        if choice_s == "1":
+        if choice_s == "":
+            pass
+        elif choice_s == "0":
+            print("Exiting...")
+            exit(0)
+        elif choice_s == "1":
             os.system("sudo systemctl stop ams-attendance")
             time.sleep(1)
             os.system("ams-enroll.py")
@@ -87,6 +93,18 @@ Please select an option:
             os.system("sudo systemctl stop ams-attendance")
             time.sleep(1)
             os.system("ams-delete.py")
+            time.sleep(1)
+            os.system("sudo systemctl start ams-attendance")
+        elif choice_s == "3":
+            os.system("sudo systemctl stop ams-attendance")
+            time.sleep(1)
+            os.system("ams-verify.py")
+            time.sleep(1)
+            os.system("sudo systemctl start ams-attendance")
+        elif choice_s == "4":
+            os.system("sudo systemctl stop ams-attendance")
+            time.sleep(1)
+            os.system("ams-get-data.py")
             time.sleep(1)
             os.system("sudo systemctl start ams-attendance")
 
