@@ -5,10 +5,17 @@ import hashlib
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER2
+
 try:
     import mariadb as connector
 except ImportError:
     import mysql.connector as connector
+import RPi.GPIO as GPIO
+
+buzzer = 16
+wait = 0.1
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(buzzer, GPIO.OUT)
 
 host = "localhost"
 user = "attendance"
@@ -80,6 +87,10 @@ try:
         print("Template already exists at position #" + str(positionNumber))
         exit(0)
 
+    GPIO.output(buzzer, GPIO.HIGH)
+    time.sleep(wait)
+    GPIO.output(buzzer, GPIO.LOW)
+
     print("Remove finger...")
     time.sleep(2)
 
@@ -87,6 +98,11 @@ try:
 
     while f.readImage() == False:
         pass
+
+    GPIO.output(buzzer, GPIO.HIGH)
+    time.sleep(wait)
+    GPIO.output(buzzer, GPIO.LOW)
+    GPIO.cleanup()
 
     f.convertImage(FINGERPRINT_CHARBUFFER2)
 

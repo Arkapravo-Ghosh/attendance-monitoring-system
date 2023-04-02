@@ -3,10 +3,17 @@ import os
 import time
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
+
 try:
     import mariadb as connector
 except ImportError:
     import mysql.connector as connector
+import RPi.GPIO as GPIO
+
+buzzer = 16
+wait = 0.1
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(buzzer, GPIO.OUT)
 
 host = "localhost"
 user = "attendance"
@@ -83,6 +90,11 @@ try:
         print("No match found!")
         exit(0)
 
+    GPIO.output(buzzer, GPIO.HIGH)
+    time.sleep(wait)
+    GPIO.output(buzzer, GPIO.LOW)
+    GPIO.cleanup()
+
     f.loadTemplate(positionNumber, FINGERPRINT_CHARBUFFER1)
 
 except Exception as e:
@@ -141,7 +153,7 @@ elif hour == 16:
 
 backend = "/opt/attendance-monitoring-system/src/server/ams-backend.py"
 try:
-    os.system(f"{backend} -n \"{name}\" -c {class_} -r {roll} -p {period}")
+    os.system(f'{backend} -n "{name}" -c {class_} -r {roll} -p {period}')
 except FileNotFoundError:
     print(f"Error: {backend} not found")
     exit(1)
