@@ -1,7 +1,7 @@
 #!/bin/python3
 import time
 import os
-import http.server
+import csv
 
 try:
     import mariadb as connector
@@ -118,6 +118,11 @@ Press Enter to go back
 2. Stop Attendance Session
 3. Restart Attendance Session
 4. View Attendance Data
+5. List Absent Students
+6. List Present Students
+7. List Students with Attendance Below Threshold
+8. List Students with Attendance Equal or Above Threshold
+9. List Students who have bunked specific periods
 0. Exit
 
 Press Enter to go back
@@ -136,10 +141,8 @@ Press Enter to go back
         elif choice_a == "3":
             os.system("sudo systemctl restart ams-attendance")
         elif choice_a == "4":
-            # Ask if the user wants today's date or different date
             print(
                 """
-Please select an option:
 1. Today's Date
 2. Different Date
 0. Exit
@@ -165,6 +168,7 @@ Press Enter to go back
                     f.write("Class, Roll, Period, Name\n")
                     for row in attendance_data:
                         f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
+                print(f"Attendance data saved to attendance_{date}.csv")
             elif choice_d == "2":
                 date = input("Enter date in dd_mm_yyyy format: ")
                 query = f"SELECT * FROM {date}"
@@ -177,8 +181,69 @@ Press Enter to go back
                     f.write("Class, Roll, Period, Name\n")
                     for row in attendance_data:
                         f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
-        else:
-            print("Invalid Choice")
+                print(f"Attendance data saved to attendance_{date}.csv")
+            else:
+                print("Invalid Choice")
+        elif choice_a == "5":
+            print(
+                """
+1. Today's Date
+2. Different Date
+0. Exit
+
+Press Enter to go back
+"""
+            )
+            """
+            student_data = execute("SELECT * FROM students")
+            attendance_data = execute(f"SELECT * FROM {date}")
+
+            student_data structure:
+            (position, name, class, roll)
+
+            attendance_data structure:
+            (class, roll, period, name)
+
+            If there's a student in student_data but not in attendance_data, then that student is absent
+            absents = []
+            put all absent students in this list and write to csv file
+            """
+            choice_d = input("Enter your choice: ")
+            if choice_d == "":
+                pass
+            elif choice_d == "0":
+                print("Exiting...")
+                exit(0)
+            elif choice_d == "1":
+                date = get_date()
+                student_data = execute("SELECT * FROM students")
+                attendance_data = execute(f"SELECT * FROM {date}")
+                absents = []
+                for student in student_data:
+                    if student not in attendance_data:
+                        absents.append(student)
+                with open(f"absents_{date}.csv", "w") as f:
+                    f.write("Class, Roll, Name\n")
+                    for absent in absents:
+                        f.write(f"{absent[2]}, {absent[3]}, {absent[1]}\n")
+                print(f"Absent students saved to absents_{date}.csv")
+            elif choice_d == "2":
+                date = input("Enter date in dd_mm_yyyy format: ")
+                student_data = execute("SELECT * FROM students")
+                attendance_data = execute(f"SELECT * FROM {date}")
+                absents = []
+                for student in student_data:
+                    if student not in attendance_data:
+                        absents.append(student)
+                with open(f"absents_{date}.csv", "w") as f:
+                    f.write("Class, Roll, Name\n")
+                    for absent in absents:
+                        f.write(f"{absent[2]}, {absent[3]}, {absent[1]}\n")
+                print(f"Absent students saved to absents_{date}.csv")
+            else:
+                print("Invalid Choice")
+        elif choice_a == "6":
+            pass
 
 
 if __name__ == "__main__":
