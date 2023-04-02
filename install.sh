@@ -72,6 +72,7 @@ if [ "$auto" == "Y" ] || [ "$auto" == "y" ] || [ "$auto" == "" ]; then
         pass_var="*"
     done
     echo
+    mysql -u root -e "CREATE DATABASE attendance;"
     mysql -u root -e "CREATE USER 'attendance'@'%' IDENTIFIED BY '$password';"
     mysql -u root -e "GRANT ALL PRIVILEGES ON attendance.* TO 'attendance'@'%';"
     mysql -u root -e "FLUSH PRIVILEGES;"
