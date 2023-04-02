@@ -8,7 +8,7 @@ User=ams
 Group=ams
 ExecStart=/opt/attendance-monitoring-system/src/fingerprint/ams-attendance.py
 Restart=always
-RestartSec=5
+RestartSec=0.1
 
 [Install]
 WantedBy=multi-user.target
