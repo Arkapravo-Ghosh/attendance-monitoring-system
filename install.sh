@@ -101,7 +101,9 @@ echo "Creating ams user..."
 useradd -m ams
 echo "Adding the user to the dialout group..."
 usermod -aG dialout ams
+usermod -aG gpio ams
 usermod -aG dialout $SUDO_USER
+usermod -aG gpio $SUDO_USER
 echo "Adding service files..."
 cp /opt/attendance-monitoring-system/src/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
 systemctl daemon-reload
