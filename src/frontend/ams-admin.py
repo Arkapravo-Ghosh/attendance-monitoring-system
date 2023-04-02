@@ -216,7 +216,7 @@ Press Enter to go back
                 exit(0)
             elif choice_d == "1":
                 date = get_date()
-                student_data = execute("SELECT * FROM students")
+                student_data = execute("SELECT * FROM student_data")
                 attendance_data = execute(f"SELECT * FROM {date}")
                 absents = []
                 for student in student_data:
@@ -229,7 +229,7 @@ Press Enter to go back
                 print(f"Absent students saved to absents_{date}.csv")
             elif choice_d == "2":
                 date = input("Enter date in dd_mm_yyyy format: ")
-                student_data = execute("SELECT * FROM students")
+                student_data = execute("SELECT * FROM student_data")
                 attendance_data = execute(f"SELECT * FROM {date}")
                 absents = []
                 for student in student_data:
