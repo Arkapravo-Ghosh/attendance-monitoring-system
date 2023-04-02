@@ -83,6 +83,12 @@ Please select an option:
             os.system("ams-enroll.py")
             time.sleep(1)
             os.system("sudo systemctl start ams-attendance")
+        elif choice_s == "2":
+            os.system("sudo systemctl stop ams-attendance")
+            time.sleep(1)
+            os.system("ams-delete.py")
+            time.sleep(1)
+            os.system("sudo systemctl start ams-attendance")
 
 
 if __name__ == "__main__":
