@@ -101,6 +101,7 @@ echo "Creating ams user..."
 useradd -m ams
 echo "Adding the user to the dialout group..."
 usermod -aG dialout ams
+usermod -aG dialout $SUDO_USER
 echo "Adding service files..."
 cp /opt/attendance-monitoring-system/src/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
 systemctl daemon-reload
@@ -114,10 +115,6 @@ echo -n "Do you want to secure the config file? (Y/n): "
 read secure
 if [ "$secure" == "Y" ] || [ "$secure" == "y" ] || [ "$secure" == "" ]; then
     echo "Securing the config file..."
-    echo "Creating the ams group..."
-    groupadd ams
-    echo "Adding ams user to the ams group..."
-    usermod -aG ams ams
     echo "Adding current user to the ams group..."
     usermod -aG ams $SUDO_USER
     echo "Changes will take effect after a relogin."
