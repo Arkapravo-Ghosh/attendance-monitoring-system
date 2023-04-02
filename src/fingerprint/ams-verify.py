@@ -91,6 +91,7 @@ try:
     GPIO.output(buzzer, GPIO.HIGH)
     time.sleep(0.5)
     GPIO.output(buzzer, GPIO.LOW)
+    GPIO.cleanup()
     f.loadTemplate(positionNumber, FINGERPRINT_CHARBUFFER1)
 
 except Exception as e:
