@@ -92,7 +92,6 @@ except Exception as e:
     exit(1)
 
 query = f"DELETE FROM student_data WHERE position = '{positionNumber}'"
-print(query)
 try:
     execute(query)
     print("Deleted from database")
