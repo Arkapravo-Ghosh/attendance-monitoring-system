@@ -89,7 +89,7 @@ try:
         print("No match found!")
         exit(0)
     GPIO.output(buzzer, GPIO.HIGH)
-    time.sleep(0.5)
+    time.sleep(0.2)
     GPIO.output(buzzer, GPIO.LOW)
     GPIO.cleanup()
     f.loadTemplate(positionNumber, FINGERPRINT_CHARBUFFER1)
