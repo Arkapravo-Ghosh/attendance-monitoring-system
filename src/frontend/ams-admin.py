@@ -154,61 +154,29 @@ Press Enter to go back
                 print("Exiting...")
                 exit(0)
             elif choice_d == "1":
-                # Get today's date
                 date = get_date()
-                # Get attendance data
                 query = f"SELECT * FROM {date}"
                 try:
                     attendance_data = execute(query)
                 except connector.ProgrammingError:
                     print("No attendance data found")
                     exit(0)
-                # Print attendance data to csv file
                 with open(f"attendance_{date}.csv", "w") as f:
                     f.write("Class, Roll, Period, Name\n")
                     for row in attendance_data:
                         f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
-                # Start http server to serve csv file
-                os.chdir(os.getcwd())
-                httpd = http.server.HTTPServer(
-                    ("", 8723), http.server.SimpleHTTPRequestHandler
-                )
-                # Get IP address using ifconfig
-                ip = os.popen("ifconfig").read().split("inet ")[1].split(" ")[0]
-                print(
-                    f"Serving attendance data at http://{ip}:8000/attendance_{date}.csv"
-                )
-                k = input("Press Enter to stop serving")
-                httpd.shutdown()
-                os.remove(f"attendance_{date}.csv")
             elif choice_d == "2":
-                # Ask for date
                 date = input("Enter date in dd_mm_yyyy format: ")
-                # Get attendance data
                 query = f"SELECT * FROM {date}"
                 try:
                     attendance_data = execute(query)
                 except connector.ProgrammingError:
                     print("No attendance data found")
                     exit(0)
-                # Print attendance data to csv file
                 with open(f"attendance_{date}.csv", "w") as f:
                     f.write("Class, Roll, Period, Name\n")
                     for row in attendance_data:
                         f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
-                # Start http server to serve csv file
-                os.chdir(os.getcwd())
-                httpd = http.server.HTTPServer(
-                    ("", 8723), http.server.SimpleHTTPRequestHandler
-                )
-                # Get IP address using ifconfig
-                ip = os.popen("ifconfig").read().split("inet ")[1].split(" ")[0]
-                print(
-                    f"Serving attendance data at http://{ip}:8000/attendance_{date}.csv"
-                )
-                k = input("Press Enter to stop serving")
-                httpd.shutdown()
-                os.remove(f"attendance_{date}.csv")
         else:
             print("Invalid Choice")
 
