@@ -82,6 +82,7 @@ Please select an option:
             time.sleep(1)
             os.system("ams-enroll.py")
             time.sleep(1)
+            os.system("sudo systemctl start ams-attendance")
 
 
 if __name__ == "__main__":
