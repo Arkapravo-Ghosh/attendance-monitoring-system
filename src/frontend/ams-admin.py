@@ -108,6 +108,109 @@ Press Enter to go back
             os.system("ams-get-data.py")
             time.sleep(1)
             os.system("sudo systemctl start ams-attendance")
+        else:
+            print("Invalid Choice")
+    elif choice_ams == "2":
+        print("Manage Attendance Data")
+        print(
+            """
+1. Start Attendance Session
+2. Stop Attendance Session
+3. Restart Attendance Session
+4. View Attendance Data
+0. Exit
+
+Press Enter to go back
+"""
+        )
+        choice_a = input("Enter your choice: ")
+        if choice_a == "":
+            pass
+        elif choice_a == "0":
+            print("Exiting...")
+            exit(0)
+        elif choice_a == "1":
+            os.system("sudo systemctl start ams-attendance")
+        elif choice_a == "2":
+            os.system("sudo systemctl stop ams-attendance")
+        elif choice_a == "3":
+            os.system("sudo systemctl restart ams-attendance")
+        elif choice_a == "4":
+            # Ask if the user wants today's date or different date
+            print(
+                """
+Please select an option:
+1. Today's Date
+2. Different Date
+0. Exit
+
+Press Enter to go back
+"""
+            )
+            choice_d = input("Enter your choice: ")
+            if choice_d == "":
+                pass
+            elif choice_d == "0":
+                print("Exiting...")
+                exit(0)
+            elif choice_d == "1":
+                # Get today's date
+                date = get_date()
+                # Get attendance data
+                query = f"SELECT * FROM {date}"
+                try:
+                    attendance_data = execute(query)
+                except connector.ProgrammingError:
+                    print("No attendance data found")
+                    exit(0)
+                # Print attendance data to csv file
+                with open(f"attendance_{date}.csv", "w") as f:
+                    f.write("Class, Roll, Period, Name\n")
+                    for row in attendance_data:
+                        f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
+                # Start http server to serve csv file
+                os.chdir(os.getcwd())
+                httpd = http.server.HTTPServer(
+                    ("", 8723), http.server.SimpleHTTPRequestHandler
+                )
+                # Get IP address using ifconfig
+                ip = os.popen("ifconfig").read().split("inet ")[1].split(" ")[0]
+                print(
+                    f"Serving attendance data at http://{ip}:8000/attendance_{date}.csv"
+                )
+                k = input("Press Enter to stop serving")
+                httpd.shutdown()
+                os.remove(f"attendance_{date}.csv")
+            elif choice_d == "2":
+                # Ask for date
+                date = input("Enter date in dd_mm_yyyy format: ")
+                # Get attendance data
+                query = f"SELECT * FROM {date}"
+                try:
+                    attendance_data = execute(query)
+                except connector.ProgrammingError:
+                    print("No attendance data found")
+                    exit(0)
+                # Print attendance data to csv file
+                with open(f"attendance_{date}.csv", "w") as f:
+                    f.write("Class, Roll, Period, Name\n")
+                    for row in attendance_data:
+                        f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
+                # Start http server to serve csv file
+                os.chdir(os.getcwd())
+                httpd = http.server.HTTPServer(
+                    ("", 8723), http.server.SimpleHTTPRequestHandler
+                )
+                # Get IP address using ifconfig
+                ip = os.popen("ifconfig").read().split("inet ")[1].split(" ")[0]
+                print(
+                    f"Serving attendance data at http://{ip}:8000/attendance_{date}.csv"
+                )
+                k = input("Press Enter to stop serving")
+                httpd.shutdown()
+                os.remove(f"attendance_{date}.csv")
+        else:
+            print("Invalid Choice")
 
 
 if __name__ == "__main__":
