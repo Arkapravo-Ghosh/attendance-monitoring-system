@@ -1,5 +1,6 @@
 *
 !.gitignore
+!ams-admin.py
 # Logs
 logs
 *.log
