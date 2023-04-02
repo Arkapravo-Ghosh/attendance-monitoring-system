@@ -6,6 +6,7 @@ After=network.target mysql.service
 Type=simple
 User=ams
 Group=ams
+StartLimitBurst=0
 ExecStart=/opt/attendance-monitoring-system/src/fingerprint/ams-attendance.py
 Restart=always
 RestartSec=0.3
