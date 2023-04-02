@@ -103,8 +103,12 @@ echo "Adding the user to the dialout group..."
 usermod -aG dialout ams
 echo "Adding service files..."
 cp /opt/attendance-monitoring-system/server/ams-attendance.service /etc/systemd/system/ams-attendance.service
-echo "Enabling the service..."
-systemctl enable ams-attendance.service
+echo -n "Do you want to enable the ams service? (Y/n): "
+read enableams
+if [ "$enableams" == "Y" ] || [ "$enableams" == "y" ] || [ "$enableams" == "" ]; then
+    echo "Enabling the service..."
+    systemctl enable ams-attendance.service
+fi
 echo -n "Do you want to secure the config file? (Y/n): "
 read secure
 if [ "$secure" == "Y" ] || [ "$secure" == "y" ] || [ "$secure" == "" ]; then
