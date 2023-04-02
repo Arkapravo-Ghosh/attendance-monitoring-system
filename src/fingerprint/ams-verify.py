@@ -2,6 +2,13 @@
 import os
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
+import RPi.GPIO as GPIO
+import time
+
+buzzer = 16
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(buzzer, GPIO.OUT)
+
 try:
     import mariadb as connector
 except ImportError:
@@ -81,7 +88,9 @@ try:
     if positionNumber == -1:
         print("No match found!")
         exit(0)
-
+    GPIO.output(buzzer, GPIO.HIGH)
+    time.sleep(0.5)
+    GPIO.output(buzzer, GPIO.LOW)
     f.loadTemplate(positionNumber, FINGERPRINT_CHARBUFFER1)
 
 except Exception as e:
@@ -95,7 +104,8 @@ try:
 except connector.ProgrammingError:
     print("Error executing query")
     exit(1)
-print(f"""
+print(
+    f"""
 Found match!
 
 Student details:
@@ -103,4 +113,5 @@ Student details:
 Name:\t{result[0][0]}
 Class:\t{result[0][1]}
 Roll:\t{result[0][2]}
-""")
+"""
+)
