@@ -29,6 +29,18 @@ if [ -x "$(command -v apt)" ]; then
             apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
         fi
     fi
+else if [ -x "$(command -v pacman)" ]; then
+    if [ ! -x "$(command -v curl)" ]; then
+        echo "Installing curl..."
+        pacman -S --noconfirm curl
+    fi
+    if [ ! -x "$(command -v mysql)" ]; then
+        echo -n "Do you want to install MariaDB? (Y/n): "
+        read install
+        if [ "$install" == "Y" ] || [ "$install" == "y" ] || [ "$install" == "" ]; then
+            pacman -S --noconfirm mariadb python-pip
+        fi
+    fi
 fi
 echo -n "Do you want to install the required pip packages? (Y/n): "
 read pipinstall
