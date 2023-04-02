@@ -31,7 +31,7 @@ if [ -x "$(command -v apt)" ]; then
         fi
     fi
 elif [ -x "$(command -v pacman)" ]; then
-    echo "Detected Arch Linux"
+    echo "Detected that you use Arch btw"
     if [ ! -x "$(command -v curl)" ]; then
         echo "Installing curl..."
         pacman -S --noconfirm curl
