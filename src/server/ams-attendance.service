@@ -7,8 +7,8 @@ Type=simple
 User=ams
 Group=ams
 ExecStart=/usr/bin/watch -n 0.1 -t /opt/attendance-monitoring-system/src/fingerprint/ams-attendance.py
-Restart=always
-RestartSec=2
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
