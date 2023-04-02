@@ -16,6 +16,7 @@ else
 fi
 
 if [ -x "$(command -v apt)" ]; then
+    echo "Detected Debian Linux"
     if [ ! -x "$(command -v curl)" ]; then
         echo "Installing curl..."
         apt install -y curl
@@ -28,8 +29,9 @@ if [ -x "$(command -v apt)" ]; then
             apt update
             apt install -y libmariadb-dev mariadb-server mariadb-client python3-dev python3-pip
         fi
-    fi
-else if [ -x "$(command -v pacman)" ]; then
+    fi # Add support for pacman
+elif [ -x "$(command -v pacman)" ]; then
+    echo "Detected Arch Linux"
     if [ ! -x "$(command -v curl)" ]; then
         echo "Installing curl..."
         pacman -S --noconfirm curl
