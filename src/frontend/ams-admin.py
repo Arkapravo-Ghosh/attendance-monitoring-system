@@ -6,7 +6,7 @@ try:
     import mariadb as connector
 except ImportError:
     import mysql.connector as connector
-
+no_of_periods = 6
 host = "localhost"
 user = "attendance"
 if os.name == "nt":
@@ -136,10 +136,10 @@ def get_bunkers(date):
         if count == 6:
             pass
         elif count < 6 and count > 0:
-            for prd in range(1, 7):
+            for prd in range(1, no_of_periods + 1):
                 if prd not in period:
                     period_bunked.append(prd)
-            bunkers.append((row, period_bunked))
+            bunkers.append([row[2], row[3], row[1], period_bunked])
     return bunkers
 
 def main():
@@ -231,7 +231,6 @@ Press Enter to go back
         else:
             print("Invalid Choice")
     elif choice_ams == "3":
-        student_data = get_student_data()
         print("Manage Attendance Data")
         print(
             """
