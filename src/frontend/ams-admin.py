@@ -89,7 +89,7 @@ def get_absent_students_class(date, class_):
             if row[2] == row_a[0] and row[3] == row_a[1]:
                 flag = 1
                 break
-        if flag == 0 and row[4] == class_:
+        if flag == 0 and row[2] == class_:
             absent_data.append(row)
     return absent_data
 
@@ -318,7 +318,6 @@ Press Enter to go back
                 date = get_date()
                 class_ = input("Enter class: ")
                 attendance_data = get_absent_students_class(date, class_)
-                print(attendance_data)
                 with open(f"attendance_{date}_{class_}.csv", "w") as f:
                     f.write("Roll, Name, Periods\n")
                     for row in attendance_data:
