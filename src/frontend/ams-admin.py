@@ -317,7 +317,7 @@ Press Enter to go back
             elif choice_d == "1":
                 date = get_date()
                 class_ = input("Enter class: ")
-                attendance_data = get_attendance_data(date, class_)
+                attendance_data = get_absent_students_class(date, class_)
                 with open(f"attendance_{date}_{class_}.csv", "w") as f:
                     f.write("Roll, Name, Periods\n")
                     for row in attendance_data:
@@ -335,7 +335,7 @@ Press Enter to go back
                     if flag == 0:
                         break
                 class_ = input("Enter class: ")
-                attendance_data = get_attendance_data(date, class_)
+                attendance_data = get_absent_students_class(date, class_)
                 with open(f"attendance_{date}_{class_}.csv", "w") as f:
                     f.write("Roll, Name, Periods\n")
                     for row in attendance_data:
