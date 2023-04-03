@@ -272,9 +272,9 @@ Press Enter to go back
                     if flag == 0:
                         absent_data.append(row)
                 with open(f"absent_{date}.csv", "w") as f:
-                    f.write("Class, Roll, Period, Name\n")
+                    f.write("Class, Roll, Name\n")
                     for row in absent_data:
-                        f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
+                        f.write(f"{row[2]}, {row[3]}, {row[1]}\n")
                 print(f"Absent data saved to absent_{date}.csv")
             elif choice_d == "2":
                 while True:
