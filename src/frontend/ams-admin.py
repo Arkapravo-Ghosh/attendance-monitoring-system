@@ -266,7 +266,9 @@ Press Enter to go back
                 for row in student_data:
                     flag = 0
                     for row_a in attendance_data:
-                        if row[0] == row_a[0] and row[1] == row_a[1]:
+                        # row[0] = position (Ignore it), row[1] = name, row[2] = class, row[3] = roll
+                        # row_a[0] = class, row_a[1] = roll, row_a[2] = period, row_a[3] = name
+                        if row[2] == row_a[0] and row[3] == row_a[1]:
                             flag = 1
                             break
                     if flag == 0:
