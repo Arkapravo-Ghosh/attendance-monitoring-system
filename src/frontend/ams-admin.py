@@ -1,7 +1,6 @@
 #!/bin/python3
 import time
 import os
-import csv
 
 try:
     import mariadb as connector

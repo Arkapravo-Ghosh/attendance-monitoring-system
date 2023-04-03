@@ -1,27 +1,19 @@
 #!/bin/python3
 from pyfingerprint.pyfingerprint import PyFingerprint
+
 try:
     import mariadb as connector
 except ImportError:
     import mysql.connector as connector
-import os
 
 host = "localhost"
 user = "attendance"
-if os.name == "nt":
-    try:
-        with open(r"C:\ams\mysqlpasswd.txt", "r") as f:
-            passwd = f.read()
-    except FileNotFoundError:
-        print(r"Error: C:\ams\mysqlpasswd.txt not found")
-        exit(1)
-elif os.name == "posix":
-    try:
-        with open("/etc/ams/mysqlpasswd.txt", "r") as f:
-            passwd = f.read()
-    except FileNotFoundError:
-        print("Error: /etc/ams/mysqlpasswd.txt not found")
-        exit(1)
+try:
+    with open("/etc/ams/mysqlpasswd.txt", "r") as f:
+        passwd = f.read()
+except FileNotFoundError:
+    print("Error: /etc/ams/mysqlpasswd.txt not found")
+    exit(1)
 passwd = passwd.strip()
 database = "attendance"
 try:
@@ -44,6 +36,7 @@ def execute(query):
         return cur.fetchall()
     except connector.ProgrammingError:
         return []
+
 
 try:
     f = PyFingerprint("/dev/ttyUSB0", 57600, 0xFFFFFFFF, 0x00000000)

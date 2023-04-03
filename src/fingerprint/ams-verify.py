@@ -1,5 +1,4 @@
 #!/bin/python3
-import os
 from pyfingerprint.pyfingerprint import PyFingerprint
 from pyfingerprint.pyfingerprint import FINGERPRINT_CHARBUFFER1
 import RPi.GPIO as GPIO
@@ -17,20 +16,13 @@ except ImportError:
 
 host = "localhost"
 user = "attendance"
-if os.name == "nt":
-    try:
-        with open(r"C:\ams\mysqlpasswd.txt", "r") as f:
-            passwd = f.read()
-    except FileNotFoundError:
-        print(r"Error: C:\ams\mysqlpasswd.txt not found")
-        exit(1)
-elif os.name == "posix":
-    try:
-        with open("/etc/ams/mysqlpasswd.txt", "r") as f:
-            passwd = f.read()
-    except FileNotFoundError:
-        print("Error: /etc/ams/mysqlpasswd.txt not found")
-        exit(1)
+try:
+    with open("/etc/ams/mysqlpasswd.txt", "r") as f:
+        passwd = f.read()
+except FileNotFoundError:
+    print("Error: /etc/ams/mysqlpasswd.txt not found")
+    GPIO.cleanup()
+    exit(1)
 passwd = passwd.strip()
 database = "attendance"
 try:
@@ -39,6 +31,7 @@ try:
     )
 except connector.OperationalError:
     print("Error connecting to Database")
+    GPIO.cleanup()
     exit(1)
 
 try:
@@ -64,6 +57,7 @@ try:
 except Exception as e:
     print("The fingerprint sensor could not be initialized!")
     print("Exception message: " + str(e))
+    GPIO.cleanup()
     exit(1)
 
 print(
@@ -88,6 +82,7 @@ try:
 
     if positionNumber == -1:
         print("No match found!")
+        GPIO.cleanup()
         exit(0)
     GPIO.output(buzzer, GPIO.HIGH)
     time.sleep(wait)
@@ -98,6 +93,7 @@ try:
 except Exception as e:
     print("Operation failed!")
     print("Exception message: " + str(e))
+    GPIO.cleanup()
     exit(1)
 
 query = f"SELECT name, class, roll FROM student_data WHERE position = {positionNumber}"
@@ -105,6 +101,7 @@ try:
     result = execute(query)
 except connector.ProgrammingError:
     print("Error executing query")
+    GPIO.cleanup()
     exit(1)
 print(
     f"""
