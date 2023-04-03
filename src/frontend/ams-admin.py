@@ -322,7 +322,7 @@ Press Enter to go back
                     f.write("Roll, Name\n")
                     for row in attendance_data:
                         f.write(f"{row[0]}, {row[1]}\n")
-                print(f"Attendance data saved to attendance_{date}_{class_}.csv")
+                print(f"Absent students data for class {class_} saved to absent_{date}_{class_}.csv")
             elif choice_d == "2":
                 while True:
                     date = input("Enter date in dd_mm_yyyy format: ")
@@ -340,7 +340,7 @@ Press Enter to go back
                     f.write("Roll, Name\n")
                     for row in attendance_data:
                         f.write(f"{row[0]}, {row[1]}\n")
-                print(f"Attendance data saved to attendance_{date}_{class_}.csv")
+                print(f"Absent students data for class {class_} saved to absent_{date}_{class_}.csv")
             else:
                 print("Invalid Choice")
         elif choice_a == "4":
