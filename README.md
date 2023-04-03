@@ -4,23 +4,17 @@
 
 *Installation guide is written at [INSTALLATION.md](docs/INSTALLATION.md).*
 
-### Model Image:
+## Model Image
 <div align=center>
 <img height=400
  src="docs/images/model.jpg">
 </div>
 
-## AMS Admin Console Usage
+## Usage
 <div align=center>
-<img height=350 src="docs/images/ams-admin.png">
-</div>
-
-## Backend Usage
-<div align=center>
-<img height=350 src="docs/images/help.png">
-</div>
-
-### Example:
+<img align=center width=450 src="docs/images/ams-admin.png">&nbsp;
+<img align=center width=500 src="docs/images/help.png">
+</div>&nbsp;
 <div align=center>
 <img width=800
  src="docs/images/example.png">
