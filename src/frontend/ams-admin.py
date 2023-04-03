@@ -93,6 +93,51 @@ def get_absent_students_class(date, class_):
             absent_data.append(row)
     return absent_data
 
+def get_present_students(date):
+    attendance_data = get_attendance_data(date)
+    student_data = get_student_data()
+    present_data = []
+    for row in student_data:
+        flag = 0
+        for row_a in attendance_data:
+            if row[2] == row_a[0] and row[3] == row_a[1]:
+                flag = 1
+                break
+        if flag == 1:
+            present_data.append(row)
+    return present_data
+
+def get_present_students_class(date, class_):
+    attendance_data = get_attendance_data(date)
+    student_data = get_student_data()
+    present_data = []
+    for row in student_data:
+        flag = 0
+        for row_a in attendance_data:
+            if row[2] == row_a[0] and row[3] == row_a[1]:
+                flag = 1
+                break
+        if flag == 1 and row[2] == class_:
+            present_data.append(row)
+    return present_data
+
+def get_bunkers(date):
+    attendance_data = get_attendance_data(date)
+    student_data = get_student_data()
+    bunkers = []
+    for row in student_data:
+        count = 0
+        period = []
+        for row_a in attendance_data:
+            if row[2] == row_a[0] and row[3] == row_a[1]:
+                count += 1
+                period.append(row_a[2])
+        if count == 6:
+            pass
+        elif count < 6 and count > 0:
+            bunkers.append([row, period])
+    return bunkers
+
 def main():
     print(
         """
@@ -353,6 +398,16 @@ Press Enter to go back
 Press Enter to go back
 """
             )
+            choice_d = input("Enter your choice: ")
+            if choice_d == "":
+                pass
+            elif choice_d == "0":
+                print("Exiting...")
+                exit(0)
+            elif choice_d == "1":
+                date = get_date()
+                bunkers = get_bunkers(date)
+                print(bunkers)
         else:
             print("Invalid Choice")
 
