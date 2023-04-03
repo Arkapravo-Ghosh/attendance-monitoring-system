@@ -12,7 +12,7 @@
 
 ## Usage
 <div align=center>
-<img align=center width=450 src="docs/images/ams-admin.png">&nbsp;
+<img align=center width=400 src="docs/images/ams-admin.png">&nbsp;
 <img align=center width=500 src="docs/images/help.png">
 </div>&nbsp;
 <div align=center>
