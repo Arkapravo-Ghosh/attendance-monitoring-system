@@ -66,13 +66,18 @@ def get_student_data():
 
 
 def get_absent_students(date):
-    data = execute(f"SELECT * FROM {date}")
-    absent = []
+    attendance_data = execute(f"SELECT * FROM {date}")
     student_data = get_student_data()
-    for student in student_data:
-        if student[0] not in [x[0] for x in data]:
-            absent.append(student)
-    return absent
+    absent_data = []
+    for row in student_data:
+        flag = 0
+        for row_a in attendance_data:
+            if row[2] == row_a[0] and row[3] == row_a[1]:
+                flag = 1
+                break
+        if flag == 0:
+            absent_data.append(row)
+    return absent_data
 
 
 def main():
@@ -255,24 +260,7 @@ Press Enter to go back
                 exit(0)
             elif choice_d == "1":
                 date = get_date()
-                query = f"SELECT * FROM {date}"
-                try:
-                    attendance_data = execute(query)
-                except connector.ProgrammingError:
-                    print("No attendance data found")
-                    exit(0)
-                # Check if an entry from student_data is absent in attendance_data, if yes, add it to absent_data
-                absent_data = []
-                for row in student_data:
-                    flag = 0
-                    for row_a in attendance_data:
-                        # row[0] = position (Ignore it), row[1] = name, row[2] = class, row[3] = roll
-                        # row_a[0] = class, row_a[1] = roll, row_a[2] = period, row_a[3] = name
-                        if row[2] == row_a[0] and row[3] == row_a[1]:
-                            flag = 1
-                            break
-                    if flag == 0:
-                        absent_data.append(row)
+                absent_data = get_absent_students(date)
                 with open(f"absent_{date}.csv", "w") as f:
                     f.write("Class, Roll, Name\n")
                     for row in absent_data:
@@ -289,17 +277,11 @@ Press Enter to go back
                             break
                     if flag == 0:
                         break
-                query = f"SELECT * FROM {date}"
-                try:
-                    attendance_data = execute(query)
-                except connector.ProgrammingError:
-                    print("No attendance data found")
-                    exit(0)
+                absent_data = get_absent_students(date)
                 with open(f"absent_{date}.csv", "w") as f:
-                    f.write("Class, Roll, Period, Name\n")
-                    for row in attendance_data:
-                        if row[2] == 0:
-                            f.write(f"{row[0]}, {row[1]}, {row[2]}, {row[3]}\n")
+                    f.write("Class, Roll, Name\n")
+                    for row in absent_data:
+                        f.write(f"{row[2]}, {row[3]}, {row[1]}\n")
                 print(f"Absent data saved to absent_{date}.csv")
             else:
                 print("Invalid Choice")
@@ -307,6 +289,8 @@ Press Enter to go back
             pass
         else:
             print("Invalid Choice")
+
+
 #         elif choice_a == "4":
 #             print(
 #                 """
