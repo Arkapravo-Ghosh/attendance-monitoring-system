@@ -128,6 +128,7 @@ def get_bunkers(date):
     for row in student_data:
         count = 0
         period = []
+        period_bunked = []
         for row_a in attendance_data:
             if row[2] == row_a[0] and row[3] == row_a[1]:
                 count += 1
@@ -135,7 +136,10 @@ def get_bunkers(date):
         if count == 6:
             pass
         elif count < 6 and count > 0:
-            bunkers.append([row, period])
+            for prd in range(1, 7):
+                if prd not in period:
+                    period_bunked.append(prd)
+            bunkers.append((row, period_bunked))
     return bunkers
 
 def main():
