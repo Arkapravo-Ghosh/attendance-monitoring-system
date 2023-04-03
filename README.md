@@ -13,7 +13,7 @@
 ## Usage
 <div align=center>
 <img align=center width=400 src="docs/images/ams-admin.png">&nbsp;
-<img align=center width=430 src="docs/images/help.png">
+<img align=center width=400 src="docs/images/help.png">
 </div>&nbsp;
 <div align=center>
 <img width=800
