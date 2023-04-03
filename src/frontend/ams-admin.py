@@ -187,8 +187,8 @@ Press Enter to go back
         print(
             """
 1. Get Attendance Data
-2. Get Absent Students
-3. Get Attendance Data for a Class
+2. Get Absent Students Data
+3. Get Absent Students Data for a Class
 4. Get Bunkers List
 0. Exit
 
@@ -318,10 +318,10 @@ Press Enter to go back
                 date = get_date()
                 class_ = input("Enter class: ")
                 attendance_data = get_absent_students_class(date, class_)
-                with open(f"attendance_{date}_{class_}.csv", "w") as f:
-                    f.write("Roll, Name, Periods\n")
+                with open(f"absent_{date}_{class_}.csv", "w") as f:
+                    f.write("Roll, Name\n")
                     for row in attendance_data:
-                        f.write(f"{row[0]}, {row[1]}, {row[2]}\n")
+                        f.write(f"{row[0]}, {row[1]}\n")
                 print(f"Attendance data saved to attendance_{date}_{class_}.csv")
             elif choice_d == "2":
                 while True:
@@ -336,10 +336,10 @@ Press Enter to go back
                         break
                 class_ = input("Enter class: ")
                 attendance_data = get_absent_students_class(date, class_)
-                with open(f"attendance_{date}_{class_}.csv", "w") as f:
-                    f.write("Roll, Name, Periods\n")
+                with open(f"absent_{date}_{class_}.csv", "w") as f:
+                    f.write("Roll, Name\n")
                     for row in attendance_data:
-                        f.write(f"{row[0]}, {row[1]}, {row[2]}\n")
+                        f.write(f"{row[0]}, {row[1]}\n")
                 print(f"Attendance data saved to attendance_{date}_{class_}.csv")
             else:
                 print("Invalid Choice")
