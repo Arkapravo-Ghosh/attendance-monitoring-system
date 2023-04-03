@@ -318,6 +318,7 @@ Press Enter to go back
                 date = get_date()
                 class_ = input("Enter class: ")
                 attendance_data = get_absent_students_class(date, class_)
+                print(attendance_data)
                 with open(f"attendance_{date}_{class_}.csv", "w") as f:
                     f.write("Roll, Name, Periods\n")
                     for row in attendance_data:
