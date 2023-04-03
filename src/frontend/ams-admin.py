@@ -66,7 +66,7 @@ def get_student_data():
 
 
 def get_absent_students(date):
-    attendance_data = execute(f"SELECT * FROM {date}")
+    attendance_data = get_attendance_data(date)
     student_data = get_student_data()
     absent_data = []
     for row in student_data:
@@ -79,6 +79,19 @@ def get_absent_students(date):
             absent_data.append(row)
     return absent_data
 
+def get_absent_students_class(date, class_):
+    attendance_data = get_attendance_data(date)
+    student_data = get_student_data()
+    absent_data = []
+    for row in student_data:
+        flag = 0
+        for row_a in attendance_data:
+            if row[2] == row_a[0] and row[3] == row_a[1]:
+                flag = 1
+                break
+        if flag == 0 and row[4] == class_:
+            absent_data.append(row)
+    return absent_data
 
 def main():
     print(
@@ -286,7 +299,60 @@ Press Enter to go back
             else:
                 print("Invalid Choice")
         elif choice_a == "3":
-            pass
+            print(
+                """
+1. Today's Date
+2. Different Date
+0. Exit
+
+Press Enter to go back
+"""
+            )
+            choice_d = input("Enter your choice: ")
+            if choice_d == "":
+                pass
+            elif choice_d == "0":
+                print("Exiting...")
+                exit(0)
+            elif choice_d == "1":
+                date = get_date()
+                class_ = input("Enter class: ")
+                attendance_data = get_attendance_data(date, class_)
+                with open(f"attendance_{date}_{class_}.csv", "w") as f:
+                    f.write("Roll, Name, Periods\n")
+                    for row in attendance_data:
+                        f.write(f"{row[0]}, {row[1]}, {row[2]}\n")
+                print(f"Attendance data saved to attendance_{date}_{class_}.csv")
+            elif choice_d == "2":
+                while True:
+                    date = input("Enter date in dd_mm_yyyy format: ")
+                    flag = 0
+                    for i in date.split("_"):
+                        if not i.isdigit():
+                            print("Invalid date")
+                            flag = 1
+                            break
+                    if flag == 0:
+                        break
+                class_ = input("Enter class: ")
+                attendance_data = get_attendance_data(date, class_)
+                with open(f"attendance_{date}_{class_}.csv", "w") as f:
+                    f.write("Roll, Name, Periods\n")
+                    for row in attendance_data:
+                        f.write(f"{row[0]}, {row[1]}, {row[2]}\n")
+                print(f"Attendance data saved to attendance_{date}_{class_}.csv")
+            else:
+                print("Invalid Choice")
+        elif choice_a == "4":
+            print(
+                """
+1. Today's Date
+2. Different Date
+0. Exit
+
+Press Enter to go back
+"""
+            )
         else:
             print("Invalid Choice")
 
