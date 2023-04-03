@@ -410,7 +410,41 @@ Press Enter to go back
             elif choice_d == "1":
                 date = get_date()
                 bunkers = get_bunkers(date)
-                print(bunkers)
+                # Example bunkers list with one row: [['1E', 23, 'Arkapravo Ghosh', [1, 2, 3]]]
+                with open(f"bunkers_{date}.csv", "w") as f:
+                    f.write("Class, Roll, Name, Periods\n")
+                    for row in bunkers:
+                        pr = ""
+                        for i in row[3]:
+                            if i == row[3][-1]:
+                                pr += f"{i}"
+                            else:
+                                pr += f"{i} "
+                        f.write(f"{row[0]}, {row[1]}, {row[2]}, {pr}\n")
+                print(f"Bunkers data saved to bunkers_{date}.csv")
+            elif choice_d == "2":
+                while True:
+                    date = input("Enter date in dd_mm_yyyy format: ")
+                    flag = 0
+                    for i in date.split("_"):
+                        if not i.isdigit():
+                            print("Invalid date")
+                            flag = 1
+                            break
+                    if flag == 0:
+                        break
+                bunkers = get_bunkers(date)
+                with open(f"bunkers_{date}.csv", "w") as f:
+                    f.write("Class, Roll, Name, Periods\n")
+                    for row in bunkers:
+                        pr = ""
+                        for i in row[3]:
+                            if i == row[3][-1]:
+                                pr += f"{i}"
+                            else:
+                                pr += f"{i} "
+                        f.write(f"{row[0]}, {row[1]}, {row[2]}, {pr}\n")
+                print(f"Bunkers data saved to bunkers_{date}.csv")
         else:
             print("Invalid Choice")
 
