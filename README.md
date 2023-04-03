@@ -12,8 +12,8 @@
 
 ## Usage
 <div align=center>
-<img align=center width=400 src="docs/images/ams-admin.png">&nbsp;
-<img align=center width=410 src="docs/images/help.png">&nbsp;
+<img align=center width=250 src="docs/images/ams-admin.png">&nbsp;
+<img align=center width=430 src="docs/images/help.png">&nbsp;
 <img width=800
  src="docs/images/example.png">
 </div>
