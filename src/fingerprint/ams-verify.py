@@ -6,8 +6,11 @@ import time
 
 buzzer = 16
 wait = 0.1
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(buzzer, GPIO.OUT)
+try:
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(buzzer, GPIO.OUT)
+except RuntimeError:
+    pass
 
 try:
     import mariadb as connector
@@ -21,7 +24,10 @@ try:
         passwd = f.read()
 except FileNotFoundError:
     print("Error: /etc/ams/mysqlpasswd.txt not found")
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 passwd = passwd.strip()
 database = "attendance"
@@ -31,7 +37,10 @@ try:
     )
 except connector.OperationalError:
     print("Error connecting to Database")
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 
 try:
@@ -57,7 +66,10 @@ try:
 except Exception as e:
     print("The fingerprint sensor could not be initialized!")
     print("Exception message: " + str(e))
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 
 print(
@@ -82,18 +94,27 @@ try:
 
     if positionNumber == -1:
         print("No match found!")
-        GPIO.cleanup()
+        try:
+            GPIO.cleanup()
+        except RuntimeError:
+            pass
         exit(0)
-    GPIO.output(buzzer, GPIO.HIGH)
-    time.sleep(wait)
-    GPIO.output(buzzer, GPIO.LOW)
-    GPIO.cleanup()
+    try:
+        GPIO.output(buzzer, GPIO.HIGH)
+        time.sleep(wait)
+        GPIO.output(buzzer, GPIO.LOW)
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     f.loadTemplate(positionNumber, FINGERPRINT_CHARBUFFER1)
 
 except Exception as e:
     print("Operation failed!")
     print("Exception message: " + str(e))
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 
 query = f"SELECT name, class, roll FROM student_data WHERE position = {positionNumber}"
@@ -101,7 +122,10 @@ try:
     result = execute(query)
 except connector.ProgrammingError:
     print("Error executing query")
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 print(
     f"""

@@ -13,9 +13,11 @@ import RPi.GPIO as GPIO
 
 buzzer = 16
 wait = 0.1
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(buzzer, GPIO.OUT)
-
+try:
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(buzzer, GPIO.OUT)
+except RuntimeError:
+    pass
 host = "localhost"
 user = "attendance"
 try:
@@ -23,7 +25,10 @@ try:
         passwd = f.read()
 except FileNotFoundError:
     print("Error: /etc/ams/mysqlpasswd.txt not found")
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 passwd = passwd.strip()
 database = "attendance"
@@ -33,7 +38,10 @@ try:
     )
 except connector.OperationalError:
     print("Error connecting to Database")
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 
 try:
@@ -57,7 +65,10 @@ try:
 except Exception as e:
     print("The fingerprint sensor could not be initialized!")
     print("Exception message: " + str(e))
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 
 print(
@@ -79,13 +90,17 @@ try:
 
     if positionNumber >= 0:
         print("Template already exists at position #" + str(positionNumber))
-        GPIO.cleanup()
+        try:
+            GPIO.cleanup()
+        except RuntimeError:
+            pass
         exit(0)
-
-    GPIO.output(buzzer, GPIO.HIGH)
-    time.sleep(wait)
-    GPIO.output(buzzer, GPIO.LOW)
-
+    try:
+        GPIO.output(buzzer, GPIO.HIGH)
+        time.sleep(wait)
+        GPIO.output(buzzer, GPIO.LOW)
+    except RuntimeError:
+        pass
     print("Remove finger...")
     time.sleep(2)
 
@@ -93,11 +108,13 @@ try:
 
     while f.readImage() == False:
         pass
-
-    GPIO.output(buzzer, GPIO.HIGH)
-    time.sleep(wait)
-    GPIO.output(buzzer, GPIO.LOW)
-    GPIO.cleanup()
+    try:
+        GPIO.output(buzzer, GPIO.HIGH)
+        time.sleep(wait)
+        GPIO.output(buzzer, GPIO.LOW)
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
 
     f.convertImage(FINGERPRINT_CHARBUFFER2)
 
@@ -117,7 +134,10 @@ try:
 except Exception as e:
     print("Operation failed!")
     print("Exception message: " + str(e))
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 
 if execute("SHOW TABLES LIKE 'student_data'") == []:
@@ -134,6 +154,9 @@ try:
     )
 except connector.IntegrityError:
     print("Error: Duplicate entry")
-    GPIO.cleanup()
+    try:
+        GPIO.cleanup()
+    except RuntimeError:
+        pass
     exit(1)
 print("Data added successfully")

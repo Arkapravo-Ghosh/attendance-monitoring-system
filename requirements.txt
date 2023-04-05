@@ -1,2 +1,3 @@
 mariadb
 pyfingerprint
+rpi.gpio
